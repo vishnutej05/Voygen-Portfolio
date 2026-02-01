@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,8 +16,8 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Services", href: "#services" },
+    { label: "Work", href: "#services" },
     { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
   ];
 
   return (
@@ -34,27 +33,27 @@ const Navbar = () => {
     >
       <nav className="container-tight flex items-center justify-between h-20">
         {/* Logo */}
-        <a href="/" className="font-serif text-2xl font-medium text-foreground hover:text-gold transition-colors">
-          Voygen
+        <a href="/" className="font-serif text-2xl font-medium text-foreground hover:text-gold transition-colors lowercase tracking-wide">
+          voygen
         </a>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
             >
               {link.label}
             </a>
           ))}
-          <Button 
-            size="sm" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6"
+          <a 
+            href="#contact"
+            className="text-xs tracking-[0.15em] uppercase text-gold hover:text-gold-glow transition-colors"
           >
             Get Started
-          </Button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -87,11 +86,13 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <Button 
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+          <a 
+            href="#contact"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block text-lg text-gold hover:text-gold-glow transition-colors"
           >
             Get Started
-          </Button>
+          </a>
         </div>
       </motion.div>
     </motion.header>

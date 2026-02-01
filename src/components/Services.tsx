@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { ChevronDown, Sparkles, Zap, Layers, ArrowUpRight } from "lucide-react";
 import work1 from "@/assets/work-1.jpg";
 import work2 from "@/assets/work-2.jpg";
@@ -89,15 +89,6 @@ const ServiceCard = ({ title, subtitle, description, icon, items, delay }: Servi
 };
 
 const WorkShowcase = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const x1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const x2 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-
   const projects = [
     { image: work1, title: "Noxt Brand", category: "E-Commerce", year: "2024" },
     { image: work2, title: "Finstack", category: "Fintech App", year: "2024" },
@@ -107,8 +98,11 @@ const WorkShowcase = () => {
     { image: work6, title: "Lexuery Beauty", category: "Beauty Commerce", year: "2024" },
   ];
 
+  const row1Projects = [...projects.slice(0, 3), ...projects.slice(0, 3), ...projects.slice(0, 3), ...projects.slice(0, 3)];
+  const row2Projects = [...projects.slice(3, 6), ...projects.slice(3, 6), ...projects.slice(3, 6), ...projects.slice(3, 6)];
+
   return (
-    <div ref={containerRef} className="py-24 overflow-hidden">
+    <div className="py-24 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -127,79 +121,96 @@ const WorkShowcase = () => {
         </p>
       </motion.div>
 
-      {/* Scrolling row 1 */}
-      <motion.div style={{ x: x1 }} className="flex gap-6 mb-6">
-        {[...projects.slice(0, 3), ...projects.slice(0, 3)].map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="relative group flex-shrink-0 w-80 md:w-96"
-          >
-            <div className="relative overflow-hidden rounded-lg">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="font-serif text-lg font-medium text-foreground">{project.title}</h4>
-                    <p className="text-sm text-gold">{project.category}</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold">
-                    <ArrowUpRight className="w-4 h-4" />
+      {/* Infinite scrolling row 1 - moves left */}
+      <div className="relative mb-6">
+        <motion.div 
+          className="flex gap-6"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ 
+            x: { 
+              duration: 40, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }
+          }}
+        >
+          {row1Projects.map((project, index) => (
+            <div
+              key={index}
+              className="relative group flex-shrink-0 w-80 md:w-96"
+            >
+              <div className="relative overflow-hidden rounded-lg">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-serif text-lg font-medium text-foreground">{project.title}</h4>
+                      <p className="text-sm text-gold">{project.category}</p>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="absolute top-4 right-4 px-2 py-1 bg-background/80 backdrop-blur-sm rounded text-xs text-muted-foreground">
+                {project.year}
+              </div>
             </div>
-            <div className="absolute top-4 right-4 px-2 py-1 bg-background/80 backdrop-blur-sm rounded text-xs text-muted-foreground">
-              {project.year}
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+          ))}
+        </motion.div>
+      </div>
 
-      {/* Scrolling row 2 - opposite direction */}
-      <motion.div style={{ x: x2 }} className="flex gap-6 -ml-48">
-        {[...projects.slice(3, 6), ...projects.slice(3, 6)].map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="relative group flex-shrink-0 w-80 md:w-96"
-          >
-            <div className="relative overflow-hidden rounded-lg">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="font-serif text-lg font-medium text-foreground">{project.title}</h4>
-                    <p className="text-sm text-gold">{project.category}</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold">
-                    <ArrowUpRight className="w-4 h-4" />
+      {/* Infinite scrolling row 2 - moves right */}
+      <div className="relative">
+        <motion.div 
+          className="flex gap-6"
+          initial={{ x: "-50%" }}
+          animate={{ x: "0%" }}
+          transition={{ 
+            x: { 
+              duration: 40, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }
+          }}
+        >
+          {row2Projects.map((project, index) => (
+            <div
+              key={index}
+              className="relative group flex-shrink-0 w-80 md:w-96"
+            >
+              <div className="relative overflow-hidden rounded-lg">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-serif text-lg font-medium text-foreground">{project.title}</h4>
+                      <p className="text-sm text-gold">{project.category}</p>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="absolute top-4 right-4 px-2 py-1 bg-background/80 backdrop-blur-sm rounded text-xs text-muted-foreground">
+                {project.year}
+              </div>
             </div>
-            <div className="absolute top-4 right-4 px-2 py-1 bg-background/80 backdrop-blur-sm rounded text-xs text-muted-foreground">
-              {project.year}
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 };

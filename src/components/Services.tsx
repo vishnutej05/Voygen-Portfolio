@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { ChevronDown, Sparkles, Zap, Layers, ArrowUpRight } from "lucide-react";
+import { Layers, Zap, Settings, ArrowUpRight } from "lucide-react";
 import work1 from "@/assets/work-1.jpg";
 import work2 from "@/assets/work-2.jpg";
 import work3 from "@/assets/work-3.jpg";
@@ -8,81 +7,52 @@ import work4 from "@/assets/work-4.jpg";
 import work5 from "@/assets/work-5.jpg";
 import work6 from "@/assets/work-6.jpg";
 
-interface ServiceCardProps {
-  title: string;
-  subtitle: string;
-  description: string;
-  icon: React.ReactNode;
-  items: { title: string; details: string[] }[];
+const ServiceCard = ({ 
+  number, 
+  title, 
+  subtitle, 
+  description, 
+  icon, 
+  delay 
+}: { 
+  number: string;
+  title: string; 
+  subtitle: string; 
+  description: string; 
+  icon: React.ReactNode; 
   delay: number;
-}
-
-const ServiceCard = ({ title, subtitle, description, icon, items, delay }: ServiceCardProps) => {
-  const [expandedItem, setExpandedItem] = useState<number | null>(null);
-
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.7, delay }}
-      className="group relative"
+      className="group relative h-full"
     >
-      <div className="relative h-full p-8 md:p-10 bg-card border border-border rounded-lg hover:border-gold/30 transition-all duration-500">
-        {/* Icon */}
-        <div className="mb-6 w-12 h-12 flex items-center justify-center rounded-lg bg-gold/10 text-gold group-hover:bg-gold/20 transition-colors duration-300">
-          {icon}
+      <div className="relative h-full p-8 md:p-10 bg-card border border-border rounded-sm hover:border-gold/30 transition-all duration-500">
+        {/* Header with icon and number */}
+        <div className="flex items-start justify-between mb-8">
+          <div className="w-12 h-12 flex items-center justify-center text-gold">
+            {icon}
+          </div>
+          <span className="text-sm text-muted-foreground">{number}</span>
         </div>
 
-        {/* Header */}
-        <span className="inline-block text-xs font-medium tracking-widest uppercase text-gold mb-3">
+        {/* Title */}
+        <h3 className="font-serif text-3xl md:text-4xl font-medium mb-3 tracking-tight">
           {title}
-        </span>
-        <h3 className="font-serif text-2xl md:text-3xl font-medium mb-4 leading-tight">
-          {subtitle}
         </h3>
-        <p className="text-muted-foreground leading-relaxed mb-8">
-          {description}
+        
+        {/* Subtitle */}
+        <p className="text-sm text-gold mb-6 tracking-wide">
+          {subtitle}
         </p>
 
-        {/* Expandable Items */}
-        <div className="space-y-3">
-          {items.map((item, index) => (
-            <div key={index} className="border-t border-border pt-3">
-              <button
-                onClick={() => setExpandedItem(expandedItem === index ? null : index)}
-                className="w-full flex items-center justify-between text-left group/item"
-              >
-                <span className="font-medium text-foreground group-hover/item:text-gold transition-colors">
-                  {item.title}
-                </span>
-                <ChevronDown 
-                  className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${
-                    expandedItem === index ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              <motion.div
-                initial={false}
-                animate={{ 
-                  height: expandedItem === index ? "auto" : 0,
-                  opacity: expandedItem === index ? 1 : 0
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden"
-              >
-                <ul className="pt-3 pl-4 space-y-2">
-                  {item.details.map((detail, i) => (
-                    <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-gold mt-2 flex-shrink-0" />
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-          ))}
-        </div>
+        {/* Description */}
+        <p className="text-muted-foreground leading-relaxed">
+          {description}
+        </p>
       </div>
     </motion.div>
   );
@@ -108,16 +78,16 @@ const WorkShowcase = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="text-center mb-16"
+        className="container-tight text-left mb-16"
       >
-        <span className="inline-block text-xs font-medium tracking-widest uppercase text-gold mb-4">
+        <span className="inline-block text-xs tracking-[0.2em] uppercase text-gold mb-4">
           Featured Work
         </span>
         <h3 className="font-serif text-4xl md:text-5xl font-medium mb-4">
-          Crafted with Precision
+          Crafted with <span className="italic">Precision</span>
         </h3>
-        <p className="max-w-xl mx-auto text-muted-foreground">
-          A selection of projects where strategy, design, and technology converge to create exceptional results.
+        <p className="max-w-xl text-muted-foreground">
+          A selection of projects where strategy, design, and technology converge.
         </p>
       </motion.div>
 
@@ -139,7 +109,7 @@ const WorkShowcase = () => {
               key={index}
               className="relative group flex-shrink-0 w-80 md:w-96"
             >
-              <div className="relative overflow-hidden rounded-lg">
+              <div className="relative overflow-hidden rounded-sm">
                 <img 
                   src={project.image} 
                   alt={project.title}
@@ -185,7 +155,7 @@ const WorkShowcase = () => {
               key={index}
               className="relative group flex-shrink-0 w-80 md:w-96"
             >
-              <div className="relative overflow-hidden rounded-lg">
+              <div className="relative overflow-hidden rounded-sm">
                 <img 
                   src={project.image} 
                   alt={project.title}
@@ -215,80 +185,95 @@ const WorkShowcase = () => {
   );
 };
 
+const ProcessSection = () => {
+  const steps = [
+    { 
+      number: "01", 
+      title: "Discover", 
+      description: "Deep dive into your business landscape, audience behavior, and competitive positioning to uncover opportunities."
+    },
+    { 
+      number: "02", 
+      title: "Strategy", 
+      description: "Define clear objectives, measurable KPIs, and a comprehensive roadmap aligned with your growth goals."
+    },
+    { 
+      number: "03", 
+      title: "Create", 
+      description: "Design and develop solutions with precision craftsmanship that exceed expectations and deliver results."
+    },
+    { 
+      number: "04", 
+      title: "Optimize", 
+      description: "Continuous improvement through data-driven insights, A/B testing, and performance optimization."
+    },
+  ];
+
+  return (
+    <div className="container-tight py-24 md:py-32">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="mb-16"
+      >
+        <span className="inline-block text-xs tracking-[0.2em] uppercase text-gold mb-4">
+          Our Process
+        </span>
+        <h3 className="font-serif text-4xl md:text-5xl font-medium mb-4">
+          From Vision to <span className="italic">Reality</span>
+        </h3>
+        <p className="max-w-xl text-muted-foreground">
+          A proven methodology that transforms ambitious ideas into market-leading digital experiences.
+        </p>
+      </motion.div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+        {steps.map((step, index) => (
+          <motion.div
+            key={step.number}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="relative group bg-background p-8 md:p-10"
+          >
+            <div className="font-serif text-6xl md:text-7xl font-medium text-gold/10 group-hover:text-gold/25 transition-colors duration-500 mb-6">
+              {step.number}
+            </div>
+            <h4 className="font-serif text-2xl font-medium mb-3">{step.title}</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Services = () => {
   const services = [
     {
+      number: "01",
       title: "CREATE",
       subtitle: "Design & Development",
-      description: "Scalable design and development teams working in structured monthly cycles to bring your vision to life.",
-      icon: <Layers className="h-6 w-6" />,
-      items: [
-        {
-          title: "Strategy & Content",
-          details: ["Brand Positioning", "Messaging Architecture", "Digital Strategy", "Content Systems"]
-        },
-        {
-          title: "Identity & Branding",
-          details: ["Visual Identity", "Brand Guidelines", "Logo Systems", "Typography & Color"]
-        },
-        {
-          title: "Websites & Apps",
-          details: ["UX/UI Design", "Web & App Development", "Framer & Webflow", "Custom Solutions"]
-        },
-        {
-          title: "Ongoing Support",
-          details: ["QA & Testing", "Maintenance", "SEO Optimization", "Performance Monitoring"]
-        }
-      ]
+      description: "Crafting digital experiences that convert. From brand identity to fully functional websites and apps, we bring your vision to life with precision and purpose.",
+      icon: <Layers className="h-7 w-7" strokeWidth={1.5} />,
     },
     {
+      number: "02",
       title: "PULSE",
-      subtitle: "AI-Enhanced Digital Growth",
-      description: "Data-driven digital marketing powered by AI. Analytics, social performance, and decision-ready insights.",
-      icon: <Zap className="h-6 w-6" />,
-      items: [
-        {
-          title: "Performance Analytics",
-          details: ["Real-time Dashboards", "Attribution Modeling", "Conversion Tracking", "ROI Analysis"]
-        },
-        {
-          title: "Social Intelligence",
-          details: ["Audience Insights", "Engagement Optimization", "Content Performance", "Competitive Analysis"]
-        },
-        {
-          title: "Lead Engagement",
-          details: ["Automated Nurturing", "Scoring Systems", "Pipeline Optimization", "CRM Integration"]
-        },
-        {
-          title: "AI Insights",
-          details: ["Predictive Analytics", "Trend Forecasting", "Opportunity Detection", "Smart Recommendations"]
-        }
-      ]
+      subtitle: "AI-Powered Marketing",
+      description: "Data-driven growth intelligence. We leverage AI analytics, social performance tracking, and predictive insights to fuel your digital marketing strategy.",
+      icon: <Zap className="h-7 w-7" strokeWidth={1.5} />,
     },
     {
+      number: "03",
       title: "CUSTOM",
-      subtitle: "Signature Programs",
-      description: "Tailored hybrid programs combining design, growth, AI, and analytics for enterprise needs.",
-      icon: <Sparkles className="h-6 w-6" />,
-      items: [
-        {
-          title: "Hybrid Solutions",
-          details: ["Custom Team Assembly", "Flexible Engagement", "Cross-functional Expertise", "Dedicated Resources"]
-        },
-        {
-          title: "Enterprise Scale",
-          details: ["Multi-brand Programs", "Global Rollouts", "Compliance & Security", "Enterprise Integrations"]
-        },
-        {
-          title: "Innovation Labs",
-          details: ["Emerging Tech Pilots", "AI Experimentation", "Prototype Development", "Market Testing"]
-        },
-        {
-          title: "Strategic Partnership",
-          details: ["C-Suite Advisory", "Quarterly Reviews", "Roadmap Planning", "Growth Workshops"]
-        }
-      ]
-    }
+      subtitle: "Tailored Programs",
+      description: "Bespoke digital solutions for complex challenges. We combine design, growth, AI, and analytics into custom programs tailored to your enterprise needs.",
+      icon: <Settings className="h-7 w-7" strokeWidth={1.5} />,
+    },
   ];
 
   return (
@@ -302,83 +287,35 @@ const Services = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16 md:mb-20"
+          className="mb-16 md:mb-20"
         >
-          <span className="inline-block text-xs font-medium tracking-widest uppercase text-gold mb-4">
-            Our Services
+          <span className="inline-block text-xs tracking-[0.2em] uppercase text-gold mb-4">
+            What We Do
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium mb-6">
-            How We Drive Growth
+            Services built for
+            <br />
+            <span className="italic text-gold">measurable impact</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-            Three pillars of excellence, each designed to deliver measurable 
-            impact at every stage of your digital journey.
-          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-3 gap-px bg-border">
           {services.map((service, index) => (
-            <ServiceCard 
-              key={service.title}
-              {...service}
-              delay={index * 0.15}
-            />
+            <div key={service.title} className="bg-charcoal">
+              <ServiceCard 
+                {...service}
+                delay={index * 0.15}
+              />
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Work Showcase with parallax scrolling */}
+      {/* Work Showcase */}
       <WorkShowcase />
 
       {/* Process section */}
-      <div className="container-tight relative z-10 pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block text-xs font-medium tracking-widest uppercase text-gold mb-4">
-            Our Process
-          </span>
-          <h3 className="font-serif text-4xl md:text-5xl font-medium mb-4">
-            From Vision to Reality
-          </h3>
-          <p className="max-w-xl mx-auto text-muted-foreground">
-            A proven methodology that transforms ambitious ideas into market-leading digital experiences.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-4 gap-6">
-          {[
-            { step: "01", title: "Discover", desc: "Deep dive into your business, audience, and competitive landscape." },
-            { step: "02", title: "Strategy", desc: "Define clear objectives, KPIs, and a roadmap for success." },
-            { step: "03", title: "Create", desc: "Design and develop solutions that exceed expectations." },
-            { step: "04", title: "Optimize", desc: "Continuous improvement through data-driven insights." },
-          ].map((item, index) => (
-            <motion.div
-              key={item.step}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative group"
-            >
-              <div className="p-6 bg-card border border-border rounded-lg hover:border-gold/30 transition-all duration-300">
-                <div className="font-serif text-5xl font-medium text-gold/20 group-hover:text-gold/40 transition-colors mb-4">
-                  {item.step}
-                </div>
-                <h4 className="font-serif text-xl font-medium mb-2">{item.title}</h4>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
-              </div>
-              {index < 3 && (
-                <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-border" />
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      <ProcessSection />
     </section>
   );
 };

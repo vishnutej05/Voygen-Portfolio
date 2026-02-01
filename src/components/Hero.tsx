@@ -106,18 +106,24 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-[1.05] tracking-tight mb-8"
+          className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-[1.05] tracking-tight mb-8 text-white"
+          style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5)' }}
         >
           Where Vision Meets
           <br />
-          <span className="italic text-gold">Measurable Growth</span>
+          <span 
+            className="italic text-gold" 
+            style={{ textShadow: '0 0 40px hsl(43 74% 49% / 0.4)' }}
+          >
+            Measurable Growth
+          </span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="max-w-2xl mx-auto text-base md:text-lg text-muted-foreground leading-relaxed mb-12"
+          className="max-w-2xl mx-auto text-base md:text-lg text-foreground/80 leading-relaxed mb-12"
         >
           We partner with ambitious brands to design, build, and scale digital 
           experiences that drive real business outcomes. Clarity. Scale. Impact.
@@ -129,21 +135,28 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
         >
-          <Button 
-            size="lg" 
-            className="bg-transparent border border-gold text-gold hover:bg-gold hover:text-primary-foreground font-medium px-8 py-6 text-sm tracking-wider uppercase transition-all duration-300"
+          {/* Primary CTA with slide-over effect */}
+          <a 
+            href="#contact"
+            className="group relative overflow-hidden border border-gold text-gold font-medium px-8 py-4 text-sm tracking-wider uppercase transition-all duration-500 rounded-sm"
           >
-            Get Started
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="lg"
+            <span className="absolute inset-0 bg-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+            <span className="relative z-10 flex items-center gap-2 group-hover:text-background transition-colors duration-300">
+              Get Started
+              <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+            </span>
+          </a>
+          
+          {/* Secondary CTA with slide-over effect */}
+          <button 
             onClick={scrollToServices}
-            className="text-muted-foreground hover:text-foreground hover:bg-transparent font-medium px-8 py-6 text-sm tracking-wider uppercase transition-all duration-300"
+            className="group relative overflow-hidden border border-muted-foreground/30 text-muted-foreground font-medium px-8 py-4 text-sm tracking-wider uppercase transition-all duration-500 rounded-sm hover:border-foreground"
           >
-            Explore Services
-          </Button>
+            <span className="absolute inset-0 bg-foreground/10 transform translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+            <span className="relative z-10 group-hover:text-foreground transition-colors duration-300">
+              Explore Services
+            </span>
+          </button>
         </motion.div>
 
         {/* Stats row */}
@@ -189,7 +202,7 @@ const Hero = () => {
           className="flex flex-col items-center gap-2 text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
           onClick={scrollToServices}
         >
-          <span className="text-xs uppercase tracking-[0.2em]">Scroll</span>
+          {/* <span className="text-xs uppercase tracking-[0.2em]">Scroll</span> */}
           <ChevronDown className="h-4 w-4" />
         </motion.div>
       </motion.div>

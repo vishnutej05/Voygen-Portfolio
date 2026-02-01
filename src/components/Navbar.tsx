@@ -33,8 +33,12 @@ const Navbar = () => {
     >
       <nav className="container-tight flex items-center justify-between h-20">
         {/* Logo */}
-        <a href="/" className="font-serif text-2xl font-medium text-foreground hover:text-gold transition-colors lowercase tracking-wide">
-          voygen
+        <a href="/" className="flex items-center">
+          <img 
+            src="/voygen-logo.jpg" 
+            alt="Voygen - Fueling the Digital Voyage" 
+            className="h-12 md:h-14 w-auto"
+          />
         </a>
 
         {/* Desktop Navigation */}
@@ -50,9 +54,12 @@ const Navbar = () => {
           ))}
           <a 
             href="#contact"
-            className="text-xs tracking-[0.15em] uppercase text-gold hover:text-gold-glow transition-colors"
+            className="group relative overflow-hidden px-4 py-2 text-xs tracking-[0.15em] uppercase text-gold border border-gold/50 rounded-sm transition-all duration-500"
           >
-            Get Started
+            <span className="absolute inset-0 bg-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-400 ease-out" />
+            <span className="relative z-10 group-hover:text-background transition-colors duration-300">
+              Get Started
+            </span>
           </a>
         </div>
 

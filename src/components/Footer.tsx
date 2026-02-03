@@ -10,9 +10,9 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
             <a href="#hero" className="flex items-center">
               <img 
-                src="/voygen-logo.jpg" 
+                src="/voygen-logo-2.png" 
                 alt="Voygen - Fueling the Digital Voyage" 
-                className="h-10 w-auto"
+                className="h-12 w-auto"
               />
             </a>
             <p className="text-sm text-muted-foreground">

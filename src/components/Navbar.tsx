@@ -35,9 +35,9 @@ const Navbar = () => {
         {/* Logo */}
         <a href="/" className="flex items-center">
           <img 
-            src="/voygen-logo.jpg" 
+            src="/voygen-logo-2.png" 
             alt="Voygen - Fueling the Digital Voyage" 
-            className="h-12 md:h-14 w-auto"
+            className="h-14 md:h-16 lg:h-18 w-auto"
           />
         </a>
 

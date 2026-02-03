@@ -20,7 +20,7 @@ const Hero = () => {
         >
           {/* Local background video */}
           <source 
-            src="/bg-1.mp4" 
+            src="/bg-2.mp4" 
             type="video/mp4" 
           />
         </video>

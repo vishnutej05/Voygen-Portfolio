@@ -62,21 +62,6 @@ const ServicesSection = () => {
     <section id="services" className="section-spacing bg-background relative z-30" data-testid="services-section">
       <div className="voygen-container">
         <motion.div 
-          ref={ref}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={staggerContainer}
-          className="mb-16 md:mb-24"
-        >
-          <motion.p variants={fadeUpVariants} className="label-mono mb-4">What We Do</motion.p>
-          <motion.h2 variants={fadeUpVariants} className="text-4xl md:text-6xl font-normal tracking-tight font-serif">
-            Services built for
-            <br />
-            <span className="gold-gradient-text italic">measurable impact</span>
-          </motion.h2>
-        </motion.div>
-
-        <motion.div 
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={staggerContainer}
@@ -171,7 +156,7 @@ const WorkShowcase = () => {
           animate={{ x: ["0%", "-50%"] }}
           transition={{ 
             x: { 
-              duration: 20, 
+              duration: 12, 
               repeat: Infinity, 
               ease: "linear" 
             }
@@ -258,7 +243,7 @@ const WorkShowcase = () => {
   );
 };
 
-// Improved Process Section with more visual impact
+// Improved Process Section with minimal line separators
 const ProcessSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
@@ -268,241 +253,148 @@ const ProcessSection = () => {
       number: "01", 
       title: "Discover", 
       description: "Deep dive into your business landscape, audience behavior, and competitive positioning to uncover opportunities.",
-      accent: "from-gold/20 to-gold/5"
     },
     { 
       number: "02", 
       title: "Strategy", 
       description: "Define clear objectives, measurable KPIs, and a comprehensive roadmap aligned with your growth goals.",
-      accent: "from-gold/15 to-gold/5"
     },
     { 
       number: "03", 
       title: "Create", 
       description: "Design and develop solutions with precision craftsmanship that exceed expectations and deliver results.",
-      accent: "from-gold/20 to-gold/5"
     },
     { 
       number: "04", 
       title: "Optimize", 
       description: "Continuous improvement through data-driven insights, A/B testing, and performance optimization.",
-      accent: "from-gold/15 to-gold/5"
     },
   ];
 
   return (
     <div className="voygen-container py-24 md:py-32" ref={ref}>
       <motion.div
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={staggerContainer}
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.6 }}
         className="mb-16"
       >
-        <motion.span variants={fadeUpVariants} className="label-mono mb-4 block">
-          Our Process
-        </motion.span>
-        <motion.h3 variants={fadeUpVariants} className="font-serif text-4xl md:text-5xl font-medium mb-4">
+        <span className="label-mono mb-4 block">Our Process</span>
+        <h3 className="font-serif text-4xl md:text-5xl font-medium mb-4">
           From Vision to <span className="italic text-gold">Reality</span>
-        </motion.h3>
-        <motion.p variants={fadeUpVariants} className="max-w-xl text-muted-foreground">
+        </h3>
+        <p className="max-w-xl text-muted-foreground">
           A proven methodology that transforms ambitious ideas into market-leading digital experiences.
-        </motion.p>
+        </p>
       </motion.div>
 
       <motion.div 
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={staggerContainer}
-        className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="grid md:grid-cols-2 lg:grid-cols-4"
       >
         {steps.map((step, index) => (
-          <motion.div
+          <div
             key={step.number}
-            variants={fadeUpVariants}
-            whileHover={{ y: -8, scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-            className="relative group bg-card border border-border hover:border-gold/40 p-8 md:p-10 rounded-sm overflow-hidden interactive"
+            className={`py-6 md:py-0 md:px-8 ${index < steps.length - 1 ? 'border-b md:border-b-0 md:border-r border-border/30 pb-6 md:pb-0' : ''} ${index > 0 ? 'pt-6 md:pt-0 md:pl-8' : 'md:pl-0'}`}
           >
-            {/* Gradient background on hover */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${step.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-            
-            {/* Animated number */}
-            <motion.div 
-              className="relative font-serif text-6xl md:text-7xl font-medium mb-6"
-              initial={{ opacity: 0.1 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1, delay: index * 0.2 }}
-            >
-              <span className="text-gold/20 group-hover:text-gold/50 transition-colors duration-500">
-                {step.number}
-              </span>
-            </motion.div>
+            {/* Number */}
+            <div className="display-number text-5xl md:text-6xl mb-6 text-gold/30">
+              {step.number}
+            </div>
             
             {/* Content */}
-            <div className="relative">
-              <h4 className="font-serif text-2xl font-medium mb-3 text-foreground group-hover:text-gold transition-colors duration-300">
-                {step.title}
-              </h4>
-              <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-foreground/70 transition-colors duration-300">
-                {step.description}
-              </p>
-            </div>
-
-            {/* Corner accent */}
-            <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-              <div className="absolute top-0 right-0 w-8 h-8 bg-gold/10 group-hover:bg-gold/30 transform rotate-45 translate-x-4 -translate-y-4 transition-colors duration-500" />
-            </div>
-          </motion.div>
+            <h4 className="font-serif text-xl md:text-2xl font-medium mb-3 text-foreground">
+              {step.title}
+            </h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {step.description}
+            </p>
+          </div>
         ))}
       </motion.div>
     </div>
   );
 };
 
-// Trust Section
-const TrustSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
-
-  const stats = [
-    { value: "$2.4B+", label: "Client Revenue Generated" },
-    { value: "150+", label: "Enterprise Clients" },
-    { value: "98%", label: "Client Retention Rate" },
-    { value: "12", label: "Years of Excellence" }
-  ];
-
-  const industries = [
-    "Financial Services", "Healthcare", "Technology", "E-Commerce", 
-    "Real Estate", "Manufacturing", "Education", "Media"
-  ];
-
-  return (
-    <section className="section-spacing bg-background relative z-30" data-testid="trust-section">
-      <div className="voygen-container">
-        <motion.div 
-          ref={ref}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={staggerContainer}
-        >
-          {/* Stats */}
-          {/* <motion.div 
-            variants={fadeUpVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-20"
-          >
-            {stats.map((stat, index) => (
-              <motion.div 
-                key={stat.label} 
-                className="text-center md:text-left interactive"
-                whileHover={{ scale: 1.05, y: -4 }}
-                transition={{ duration: 0.3 }}
-              >
-                <motion.p 
-                  className="text-4xl md:text-5xl lg:text-6xl font-medium font-serif gold-gradient-text mb-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  {stat.value}
-                </motion.p>
-                <p className="text-sm text-muted-foreground tracking-wide">{stat.label}</p>
-              </motion.div>
-            ))}
-          </motion.div> */}
-
-          {/* <div className="divider-gold mb-20" /> */}
-
-          {/* Industries */}
-          <motion.div variants={fadeUpVariants} className="text-center">
-            <p className="label-mono mb-10">Trusted Across Industries</p>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-5">
-              {industries.map((industry, index) => (
-                <motion.span 
-                  key={industry}
-                  className="px-5 py-2.5 border border-border text-sm text-muted-foreground hover:border-gold hover:text-gold rounded-sm transition-all duration-300 interactive"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
-                >
-                  {industry}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
-// About Section
+// About Section - With Image and CTA
 const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
 
+  const highlights = [
+    "Strategic digital growth partner",
+    "Data-driven decision making",
+    "Performance-based results",
+    "Industry-leading expertise",
+  ];
+
   return (
-    <section id="about" className="section-spacing bg-charcoal relative z-30 overflow-hidden" data-testid="about-section">
-      {/* Background accent */}
-      {/* <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-gold/5 to-transparent pointer-events-none" /> */}
-      
-      <div className="voygen-container relative">
+    <section id="about" className="py-24 md:py-32 bg-charcoal relative z-30" data-testid="about-section">
+      <div className="voygen-container">
         <motion.div 
           ref={ref}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={staggerContainer}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center"
         >
-          <motion.div variants={fadeUpVariants}>
-            <motion.p variants={fadeUpVariants} className="label-mono mb-4">About Voygen</motion.p>
-            <motion.h2 variants={fadeUpVariants} className="text-4xl md:text-6xl font-normal tracking-tight font-serif mb-8">
+          {/* Left - Content */}
+          <div>
+            <span className="label-mono mb-4 block">About Voygen</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight font-serif mb-8">
               We build digital
               <br />
               <span className="gold-gradient-text italic">that delivers ROI</span>
-            </motion.h2>
-            <div className="space-y-6 text-muted-foreground leading-relaxed">
-              <p className="text-lg">
-                Voygen is a strategic digital growth partner for companies that take their growth seriously. 
-                We combine deep industry expertise with cutting-edge technology to deliver measurable outcomes.
-              </p>
-              <p>
-                Founded by industry veterans from McKinsey, Google, and Stripe, we understand that digital 
-                transformation isn't about trends—it's about results. Every decision we make is backed by 
-                data, and every pixel we push is designed to convert.
-              </p>
-              <p>
-                Our clients don't just get a vendor. They get a partner invested in their long-term success, 
-                with skin in the game through performance-based engagements.
-              </p>
-            </div>
-          </motion.div>
+            </h2>
+            
+            <p className="text-lg text-muted-foreground mb-8 max-w-xl">
+              A strategic partner for companies that take their growth seriously.
+            </p>
 
+            {/* Minimal bullet points */}
+            <ul className="flex flex-wrap gap-x-8 gap-y-3 mb-10">
+              {highlights.map((item, i) => (
+                <li key={i} className="flex items-center gap-2 text-foreground/80">
+                  <span className="w-1.5 h-1.5 bg-gold rounded-full" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA Button */}
+            <a 
+              href="/about"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-transparent border border-gold text-gold font-medium text-sm tracking-wider uppercase rounded-sm hover:bg-gold hover:text-background transition-all duration-300"
+            >
+              Learn Our Story
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+
+          {/* Right - Image */}
           <motion.div 
-            variants={fadeUpVariants}
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <motion.div 
-              className="aspect-square relative overflow-hidden rounded-sm interactive"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.5 }}
-            >
+            <div className="aspect-square relative overflow-hidden rounded-sm">
               <img 
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
                 alt="Voygen Team"
                 className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60" />
-            </motion.div>
+            </div>
             
-            {/* Philosophy card - positioned outside image, overlapping */}
+            {/* Philosophy card */}
             <motion.div 
               className="absolute -bottom-6 -left-6 p-8 bg-background border border-border"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
               initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
               <p className="label-mono text-[10px] mb-2">Our Philosophy</p>
               <p className="text-xl font-serif font-medium text-foreground">
@@ -519,21 +411,11 @@ const AboutSection = () => {
 const Services = () => {
   return (
     <section className="bg-charcoal relative">
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none" />
-      
-      <div className="relative z-10">
-        <ServicesSection />
-      </div>
-
       {/* Work Showcase */}
       <WorkShowcase />
 
       {/* Process section */}
       <ProcessSection />
-
-      {/* Trust section */}
-      <TrustSection />
 
       {/* About section */}
       <AboutSection />

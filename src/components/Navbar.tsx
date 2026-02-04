@@ -15,9 +15,9 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { label: "Services", href: "#services" },
-    { label: "Work", href: "#services" },
-    { label: "About", href: "#about" },
+    { label: "Services", href: "/services" },
+    { label: "Work", href: "/#work" },
+    { label: "About", href: "/about" },
   ];
 
   return (
@@ -53,7 +53,7 @@ const Navbar = () => {
             </a>
           ))}
           <a 
-            href="#contact"
+            href="/contact"
             className="group relative overflow-hidden px-4 py-2 text-xs tracking-[0.15em] uppercase text-gold border border-gold/50 rounded-sm transition-all duration-500"
           >
             <span className="absolute inset-0 bg-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-400 ease-out" />
@@ -94,7 +94,7 @@ const Navbar = () => {
             </a>
           ))}
           <a 
-            href="#contact"
+            href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
             className="block text-lg text-gold hover:text-gold-glow transition-colors"
           >

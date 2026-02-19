@@ -15,7 +15,34 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const allServices = [
+interface ServiceFeature {
+  title: string;
+  description: string;
+  bullets?: string[];
+}
+
+interface ExtraBlock {
+  title: string;
+  description: string;
+  bullets: string[];
+}
+
+interface ServiceData {
+  id: string;
+  icon: typeof Palette;
+  title: string;
+  subtitle: string;
+  tagline: string;
+  heroDescription: string;
+  description: string;
+  features: ServiceFeature[];
+  process: string[];
+  gradient: string;
+  ctaText?: string;
+  extras?: ExtraBlock[];
+}
+
+const allServices: ServiceData[] = [
   {
     id: "brand-foundation",
     icon: Palette,
@@ -56,76 +83,105 @@ const allServices = [
   {
     id: "digital-presence",
     icon: Globe,
-    title: "Digital Presence",
-    subtitle: "Web & Experience",
-    tagline: "Your digital storefront, reimagined",
-    heroDescription: "We create stunning digital experiences that captivate visitors and convert them into loyal customers. Every pixel is designed with purpose.",
-    description: "In today's digital-first world, your website is often the first impression. We design and develop websites that not only look stunning but perform exceptionally, driving engagement and conversions.",
+    title: "Web Services",
+    subtitle: "Build & Scale",
+    tagline: "Your business's digital home",
+    heroDescription: "Your website is your business's digital home. It's the place where customers learn about you, explore your products or services, and decide whether to trust you. Even when you're offline, your website is working — speaking for your brand 24/7.",
+    description: "A well-built website doesn't just \"look good.\" It builds credibility, answers questions, captures leads, and converts visitors into customers. We use smart tools, AI, and automation to reduce development time and make professional websites affordable — without compromising quality. We start from ₹2999* because we believe every business — even a small local shop — deserves a strong digital presence. And as your business grows, your website can scale with you.",
     features: [
       {
-        title: "Custom Website Design",
-        description: "Bespoke designs tailored to your brand, not templates."
+        title: "Requirement Gathering",
+        description: "We begin by understanding your business inside-out.",
+        bullets: ["Your business goals", "Your target audience", "Features you need", "Your budget and timeline"]
       },
       {
-        title: "Responsive Development",
-        description: "Flawless experience across all devices—desktop, tablet, and mobile."
+        title: "Architecture Planning",
+        description: "We plan the technical foundation for a rock-solid website.",
+        bullets: ["Technology stack", "Website structure", "Page hierarchy", "Performance and security considerations"]
       },
       {
-        title: "UI/UX Optimization",
-        description: "User-centered design that guides visitors toward your goals."
+        title: "Design (UI/UX & Content)",
+        description: "We focus on visual excellence and clear messaging.",
+        bullets: ["Clean and modern design", "Easy navigation", "Clear messaging", "Proper placement of images, media, and call-to-actions"]
       },
       {
-        title: "CMS Integration",
-        description: "Easy content management with WordPress, Webflow, or custom solutions."
+        title: "Front-End Development & Testing",
+        description: "This is where your website comes to life visually. We build the user-facing part and continuously test it.",
+        bullets: ["Speed", "Mobile responsiveness", "User experience", "Each stage improves based on your inputs"]
       },
       {
-        title: "E-commerce Solutions",
-        description: "Powerful online stores that drive sales and delight customers."
+        title: "Back-End Development & Testing",
+        description: "We develop the technical engine behind your website.",
+        bullets: ["Databases", "Forms and data collection", "Secure login systems", "API integrations"]
       },
       {
-        title: "Performance Optimization",
-        description: "Lightning-fast load times that keep visitors engaged."
+        title: "User Acceptance Testing (UAT)",
+        description: "You test the website as a real user. We fix any issues, fine-tune performance, and ensure everything works perfectly before launch."
+      },
+      {
+        title: "Delivery & Launch",
+        description: "We deploy your website and make it live — ready for the world to see."
       }
     ],
-    process: ["Discovery & Planning", "Design & Prototyping", "Development", "Launch & Support"],
+    extras: [
+      {
+        title: "End-to-End Support",
+        description: "We handle everything so you don't have to worry about technical complexities.",
+        bullets: ["Domain registration", "Hosting setup", "Website maintenance", "Security updates", "Performance monitoring", "SEO Services"]
+      },
+      {
+        title: "Beyond Websites",
+        description: "We don't stop at websites. We also build:",
+        bullets: ["Custom web applications", "Business software", "Mobile apps", "Automation tools", "Content management systems"]
+      }
+    ],
+    process: ["Requirement Gathering", "Architecture Planning", "Design & Content", "Development & Testing", "UAT", "Delivery & Launch"],
     gradient: "from-gold/20 to-amber-500/20",
+    ctaText: "Your website is not an expense — it's an investment in your business growth. Get in touch with us to discover how the right web solution can take your business to the next level.",
   },
   {
     id: "growth-marketing",
     icon: TrendingUp,
-    title: "Growth Marketing",
-    subtitle: "Reach & Convert",
-    tagline: "Data-driven growth, measurable results",
-    heroDescription: "We leverage data and creativity to drive sustainable growth. Every campaign is optimized for maximum impact and ROI.",
-    description: "Growth isn't accidental—it's engineered. We combine analytical rigor with creative excellence to build marketing strategies that deliver measurable, sustainable results for your business.",
+    title: "Digital Marketing",
+    subtitle: "Reach & Grow",
+    tagline: "Be noticed, remembered, and trusted",
+    heroDescription: "In today's world, your customers are online — scrolling, searching, comparing, and deciding. If your business isn't visible there, you're losing valuable opportunities every day. Digital marketing is not just about being present online — it's about being noticed, remembered, and trusted.",
+    description: "We believe successful digital marketing depends on two things: Quality that builds credibility and consistency that builds recognition. When both work together, your brand doesn't just appear — it stands out. With technology and AI transforming the way businesses operate, we use automation and intelligent tools to make marketing faster to launch, more affordable, more precise in targeting, and more efficient in generating results. You focus on running your business. We focus on growing it.",
     features: [
       {
-        title: "SEO Strategy & Implementation",
-        description: "Dominate search rankings with technical and content SEO excellence."
+        title: "Social Media Post Creation",
+        description: "We design eye-catching and professional posts that reflect your brand identity.",
+        bullets: ["Informative posts", "Promotional creatives", "Festival & seasonal posts", "Product highlights", "Educational content"]
       },
       {
-        title: "Paid Advertising",
-        description: "Strategic Google Ads and Meta campaigns that maximize ROAS."
+        title: "Reels & Short Videos",
+        description: "Short videos are one of the fastest ways to grow online. We create engaging reels that:",
+        bullets: ["Showcase your products or services", "Tell your brand story", "Capture trends in a meaningful way", "Increase reach organically"]
       },
       {
-        title: "Content Marketing",
-        description: "Compelling content that attracts, engages, and converts your ideal audience."
+        title: "Social Media Management",
+        description: "Consistency builds trust. We handle your complete social media presence, including:",
+        bullets: ["Content planning", "Posting schedule", "Caption writing", "Hashtag research", "Profile optimization"]
       },
       {
-        title: "Email Marketing Automation",
-        description: "Automated sequences that nurture leads and drive conversions."
+        title: "Paid Ads & Boosting",
+        description: "We help your business reach the right audience — not just more people, but the right people.",
+        bullets: ["Instagram & Facebook ad campaigns", "Post boosting for better visibility", "Targeted audience selection", "Budget-friendly ad planning", "Performance tracking"]
       },
       {
-        title: "Conversion Rate Optimization",
-        description: "Data-driven testing to maximize every visitor's potential."
+        title: "Lead Generation Campaigns",
+        description: "We create focused campaigns that help you collect real business leads.",
+        bullets: ["Customer inquiries", "WhatsApp leads", "Website visits", "Contact details of interested buyers"]
       },
       {
-        title: "Analytics & Reporting",
-        description: "Clear, actionable insights that inform strategic decisions."
+        title: "Performance Tracking & Reporting",
+        description: "We don't just post and disappear. You receive clear reports showing:",
+        bullets: ["Reach and engagement", "Growth in followers", "Leads generated", "Ad performance"]
       }
     ],
-    process: ["Audit & Analysis", "Strategy Development", "Campaign Execution", "Optimize & Scale"],
+    process: ["Strategy & Planning", "Content Creation", "Campaign Execution", "Track & Optimize"],
     gradient: "from-emerald-500/20 to-teal-600/20",
+    ctaText: "Let's turn your social media into a powerful business tool. Get in touch and let's grow your brand the smart way.",
   },
   {
     id: "social-mastery",
@@ -309,6 +365,25 @@ const ServiceDetailPage = () => {
         </div>
       </section>
 
+      {/* About / Description Section */}
+      <section className="py-16 md:py-24 border-b border-border/30">
+        <div className="container-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <span className="text-xs tracking-[0.3em] uppercase text-gold mb-4 block">
+              Why Choose Us
+            </span>
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+              {service.description}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20 md:py-28">
         <div className="container-tight">
@@ -324,9 +399,6 @@ const ServiceDetailPage = () => {
             <h2 className="font-serif text-3xl md:text-4xl font-medium mb-4">
               Everything You Need
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              {service.description}
-            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -336,19 +408,63 @@ const ServiceDetailPage = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group p-6 rounded-xl border border-border/50 bg-gradient-to-br from-background to-gold/5 hover:border-gold/30 transition-all duration-300"
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="group p-6 md:p-8 rounded-xl border border-border/50 bg-gradient-to-br from-background to-gold/5 hover:border-gold/30 transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors">
                   <Check className="w-5 h-5 text-gold" />
                 </div>
-                <h3 className="font-medium text-lg mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+                <h3 className="font-serif text-lg md:text-xl font-medium mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3">{feature.description}</p>
+                
+                {feature.bullets && feature.bullets.length > 0 && (
+                  <ul className="space-y-2 mt-4 pt-4 border-t border-border/30">
+                    {feature.bullets.map((bullet, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold/60 mt-1.5 flex-shrink-0" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Extras Section (for services with additional content blocks) */}
+      {service.extras && service.extras.length > 0 && (
+        <section className="py-16 md:py-24 bg-muted/10 border-y border-border/30">
+          <div className="container-tight">
+            <div className="grid md:grid-cols-2 gap-8">
+              {service.extras.map((extra, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  className="p-8 md:p-10 rounded-2xl border border-gold/20 bg-gradient-to-br from-background to-gold/5"
+                >
+                  <h3 className="font-serif text-2xl md:text-3xl font-medium mb-3">{extra.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-6">{extra.description}</p>
+                  <ul className="space-y-3">
+                    {extra.bullets.map((bullet, i) => (
+                      <li key={i} className="flex items-center gap-3 text-foreground">
+                        <div className="w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-3.5 h-3.5 text-gold" />
+                        </div>
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 md:py-28 bg-muted/20">
@@ -362,9 +478,11 @@ const ServiceDetailPage = () => {
             <h2 className="font-serif text-3xl md:text-4xl font-medium mb-4">
               Ready to Get Started?
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto mb-8">
-              Let's discuss how {service.title} can transform your business. 
-              Our team is ready to bring your vision to life.
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-lg leading-relaxed">
+              {service.ctaText 
+                ? service.ctaText 
+                : `Let's discuss how ${service.title} can transform your business. Our team is ready to bring your vision to life.`
+              }
             </p>
             <Link 
               to="/contact"

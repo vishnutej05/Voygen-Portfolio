@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzn80LNeYuWIaH1iqiohlbsefjnSZWt-YAKA-s4PAgQo5iHNuGL2fBV8lK4ezdHDsQ5ig/exec";
 
 const ContactPage = () => {
   const [formState, setFormState] = useState({
@@ -12,17 +14,35 @@ const ContactPage = () => {
     service: "",
     message: "",
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    setSubmitStatus("loading");
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formState,
+          source: "Contact Page",
+        }),
+      });
+
+      setSubmitStatus("success");
+      setFormState({ name: "", email: "", company: "", service: "", message: "" });
+      setTimeout(() => setSubmitStatus("idle"), 4000);
+    } catch {
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus("idle"), 4000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -112,15 +132,15 @@ const ContactPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              {isSubmitted ? (
+              {submitStatus === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="h-full flex items-center justify-center"
                 >
                   <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gold/10 flex items-center justify-center">
-                      <Send className="w-8 h-8 text-gold" />
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <CheckCircle2 className="w-8 h-8 text-emerald-500" />
                     </div>
                     <h3 className="font-serif text-2xl font-medium mb-2">Message Sent!</h3>
                     <p className="text-muted-foreground">We'll get back to you within 24 hours.</p>
@@ -177,11 +197,11 @@ const ContactPage = () => {
                         className="w-full bg-transparent border-0 border-b border-border px-0 py-3 text-foreground focus:border-gold focus:outline-none transition-colors cursor-pointer"
                       >
                         <option value="" className="bg-background">Select a service</option>
-                        <option value="brand-foundation" className="bg-background">Brand Foundation</option>
-                        <option value="digital-presence" className="bg-background">Web Services</option>
-                        <option value="growth-marketing" className="bg-background">Digital Marketing</option>
-                        <option value="social-mastery" className="bg-background">Social Mastery</option>
-                        <option value="ai-powered-growth" className="bg-background">AI-Powered Growth</option>
+                        <option value="Brand Foundation" className="bg-background">Brand Foundation</option>
+                        <option value="Web Services" className="bg-background">Web Services</option>
+                        <option value="Digital Marketing" className="bg-background">Digital Marketing</option>
+                        <option value="Social Mastery" className="bg-background">Social Mastery</option>
+                        <option value="AI-Powered Growth" className="bg-background">AI-Powered Growth</option>
                       </select>
                     </div>
                   </div>
@@ -199,11 +219,26 @@ const ContactPage = () => {
                     />
                   </div>
 
+                  {submitStatus === "error" && (
+                    <div className="flex items-center gap-2 text-red-400 text-sm">
+                      <AlertCircle className="w-4 h-4" />
+                      Something went wrong. Please try again or email us directly.
+                    </div>
+                  )}
+
                   <button 
                     type="submit"
-                    className="px-8 py-3 border border-gold text-gold font-medium text-xs tracking-[0.15em] uppercase hover:bg-gold hover:text-background transition-all duration-300"
+                    disabled={submitStatus === "loading"}
+                    className="px-8 py-3 border border-gold text-gold font-medium text-xs tracking-[0.15em] uppercase hover:bg-gold hover:text-background transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   >
-                    Send Inquiry
+                    {submitStatus === "loading" ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Inquiry"
+                    )}
                   </button>
                 </form>
               )}

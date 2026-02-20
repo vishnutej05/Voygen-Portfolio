@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { 
   Palette, 
@@ -11,10 +11,15 @@ import {
   ArrowRight,
   Mail,
   Phone,
-  MapPin
+  MapPin,
+  Loader2,
+  CheckCircle2,
+  AlertCircle
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzn80LNeYuWIaH1iqiohlbsefjnSZWt-YAKA-s4PAgQo5iHNuGL2fBV8lK4ezdHDsQ5ig/exec";
 
 const allServices = [
   {
@@ -116,6 +121,13 @@ const allServices = [
 
 const ServicesPage = () => {
   const location = useLocation();
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    service: "",
+    message: "",
+  });
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   // Handle anchor scroll on page load
   useEffect(() => {
@@ -128,6 +140,35 @@ const ServicesPage = () => {
       }
     }
   }, [location]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitStatus("loading");
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formState,
+          company: "",
+          source: "Services Page",
+        }),
+      });
+
+      setSubmitStatus("success");
+      setFormState({ name: "", email: "", service: "", message: "" });
+      setTimeout(() => setSubmitStatus("idle"), 4000);
+    } catch {
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus("idle"), 4000);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormState(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -254,47 +295,97 @@ const ServicesPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <form className="space-y-6">
-                <div>
-                  <label className="text-sm text-foreground/70 mb-2 block">Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-gold focus:outline-none transition-colors"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm text-foreground/70 mb-2 block">Email</label>
-                  <input 
-                    type="email" 
-                    className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-gold focus:outline-none transition-colors"
-                    placeholder="your@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm text-foreground/70 mb-2 block">Service Interest</label>
-                  <select className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-gold focus:outline-none transition-colors">
-                    <option value="">Select a service</option>
-                    {allServices.map((service) => (
-                      <option key={service.id} value={service.id}>{service.title}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm text-foreground/70 mb-2 block">Message</label>
-                  <textarea 
-                    rows={4}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-gold focus:outline-none transition-colors resize-none"
-                    placeholder="Tell us about your project..."
-                  />
-                </div>
-                <button 
-                  type="submit"
-                  className="w-full py-4 bg-gold text-background font-medium text-sm tracking-wider uppercase rounded-sm hover:bg-gold-glow transition-colors duration-300"
+              {submitStatus === "success" ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="h-full flex items-center justify-center min-h-[300px]"
                 >
-                  Send Message
-                </button>
-              </form>
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                    </div>
+                    <h3 className="font-serif text-2xl font-medium mb-2">Message Sent!</h3>
+                    <p className="text-muted-foreground">We'll get back to you within 24 hours.</p>
+                  </div>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label className="text-sm text-foreground/70 mb-2 block">Name *</label>
+                    <input 
+                      type="text"
+                      name="name"
+                      value={formState.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-gold focus:outline-none transition-colors"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-foreground/70 mb-2 block">Email *</label>
+                    <input 
+                      type="email"
+                      name="email"
+                      value={formState.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-gold focus:outline-none transition-colors"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-foreground/70 mb-2 block">Service Interest *</label>
+                    <select
+                      name="service"
+                      value={formState.service}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-gold focus:outline-none transition-colors"
+                    >
+                      <option value="">Select a service</option>
+                      {allServices.map((service) => (
+                        <option key={service.id} value={service.title}>{service.title}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-sm text-foreground/70 mb-2 block">Message *</label>
+                    <textarea 
+                      name="message"
+                      value={formState.message}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                      className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-gold focus:outline-none transition-colors resize-none"
+                      placeholder="Tell us about your project..."
+                    />
+                  </div>
+
+                  {submitStatus === "error" && (
+                    <div className="flex items-center gap-2 text-red-400 text-sm">
+                      <AlertCircle className="w-4 h-4" />
+                      Something went wrong. Please try again.
+                    </div>
+                  )}
+
+                  <button 
+                    type="submit"
+                    disabled={submitStatus === "loading"}
+                    className="w-full py-4 bg-gold text-background font-medium text-sm tracking-wider uppercase rounded-sm hover:bg-gold-glow transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {submitStatus === "loading" ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Message"
+                    )}
+                  </button>
+                </form>
+              )}
             </motion.div>
 
             {/* Contact Info */}

@@ -34,7 +34,8 @@ interface ServiceData {
   subtitle: string;
   tagline: string;
   heroDescription: string;
-  description: string;
+  /** Supports <span class="text-gold"> for highlights */
+  descriptionHtml: string;
   features: ServiceFeature[];
   process: string[];
   gradient: string;
@@ -49,36 +50,43 @@ const allServices: ServiceData[] = [
     title: "Brand Foundation",
     subtitle: "Identity & Strategy",
     tagline: "Build a brand that lasts",
-    heroDescription: "We craft compelling brand identities that resonate with your audience and stand the test of time. From strategy to execution, we build brands that matter.",
-    description: "Your brand is more than a logo—it's the emotional connection between you and your audience. We dive deep into understanding your vision, values, and goals to create a cohesive identity that speaks volumes.",
+    heroDescription: "Your brand is the first impression your audience gets — and the lasting memory they carry. We don't just design logos. We build complete brand identities that connect emotionally with your audience and create trust from the very first touchpoint.",
+    descriptionHtml: `A strong brand is the foundation of every successful business. It's what makes people <span class="text-gold font-medium">choose you over competitors</span>, come back for more, and recommend you to others. We craft brands that are <span class="text-gold font-medium">consistent, recognizable, and meaningful</span> — whether it's your website, social media, packaging, or storefront. Every element is designed to work together and tell your unique story.`,
     features: [
       {
         title: "Logo Design & Variations",
-        description: "Custom logo design with multiple variations for different use cases and platforms."
+        description: "Custom logo design tailored to your business personality.",
+        bullets: ["Primary logo", "Icon/favicon variations", "Monochrome versions", "Social media-ready formats"]
       },
       {
         title: "Brand Strategy & Positioning",
-        description: "Strategic positioning that differentiates you from competitors and resonates with your target audience."
+        description: "Strategic positioning that sets you apart in your market.",
+        bullets: ["Competitor analysis", "Target audience profiling", "Unique value proposition", "Brand story development"]
       },
       {
         title: "Typography System",
-        description: "Carefully selected typefaces that reflect your brand personality across all touchpoints."
+        description: "Carefully curated fonts that reflect your brand's personality.",
+        bullets: ["Primary & secondary typefaces", "Font hierarchy guidelines", "Web & print font pairings", "Usage rules & examples"]
       },
       {
         title: "Color Palette & Guidelines",
-        description: "A comprehensive color system that ensures consistency and recognition."
+        description: "A comprehensive color system for consistency across all platforms.",
+        bullets: ["Primary & secondary colors", "Accent & neutral tones", "Color codes (HEX, RGB, CMYK)", "Do's and don'ts for usage"]
       },
       {
         title: "Brand Voice & Messaging",
-        description: "Tone, voice, and messaging guidelines that keep your communication consistent."
+        description: "Define how your brand sounds across all communication.",
+        bullets: ["Tone of voice guidelines", "Key messaging pillars", "Tagline & slogan creation", "Content style guide"]
       },
       {
         title: "Brand Asset Library",
-        description: "Complete library of brand assets ready for use across all channels."
+        description: "Everything your team needs to represent the brand perfectly.",
+        bullets: ["Social media templates", "Stationery design", "Presentation templates", "Brand guidelines document"]
       }
     ],
-    process: ["Discovery & Research", "Strategy Development", "Visual Identity", "Guidelines & Delivery"],
+    process: ["Discovery & Research", "Strategy Development", "Visual Identity Design", "Guidelines & Handoff"],
     gradient: "from-amber-500/20 to-orange-600/20",
+    ctaText: "Your brand is not just a logo — it's the feeling people get when they interact with your business. Let us help you build a brand that people remember and trust.",
   },
   {
     id: "digital-presence",
@@ -87,7 +95,7 @@ const allServices: ServiceData[] = [
     subtitle: "Build & Scale",
     tagline: "Your business's digital home",
     heroDescription: "Your website is your business's digital home. It's the place where customers learn about you, explore your products or services, and decide whether to trust you. Even when you're offline, your website is working — speaking for your brand 24/7.",
-    description: "A well-built website doesn't just \"look good.\" It builds credibility, answers questions, captures leads, and converts visitors into customers. We use smart tools, AI, and automation to reduce development time and make professional websites affordable — without compromising quality. We start from ₹2999* because we believe every business — even a small local shop — deserves a strong digital presence. And as your business grows, your website can scale with you.",
+    descriptionHtml: `A well-built website doesn't just "look good." It builds <span class="text-gold font-medium">credibility</span>, answers questions, <span class="text-gold font-medium">captures leads</span>, and converts visitors into customers. We use smart tools, AI, and automation to reduce development time and make professional websites affordable — without compromising quality. We start from <span class="text-gold font-semibold">₹2999*</span> because we believe every business — even a small local shop — deserves a strong digital presence. And as your business grows, your website can <span class="text-gold font-medium">scale with you</span>.`,
     features: [
       {
         title: "Requirement Gathering",
@@ -146,7 +154,7 @@ const allServices: ServiceData[] = [
     subtitle: "Reach & Grow",
     tagline: "Be noticed, remembered, and trusted",
     heroDescription: "In today's world, your customers are online — scrolling, searching, comparing, and deciding. If your business isn't visible there, you're losing valuable opportunities every day. Digital marketing is not just about being present online — it's about being noticed, remembered, and trusted.",
-    description: "We believe successful digital marketing depends on two things: Quality that builds credibility and consistency that builds recognition. When both work together, your brand doesn't just appear — it stands out. With technology and AI transforming the way businesses operate, we use automation and intelligent tools to make marketing faster to launch, more affordable, more precise in targeting, and more efficient in generating results. You focus on running your business. We focus on growing it.",
+    descriptionHtml: `We believe successful digital marketing depends on two things: <span class="text-gold font-medium">Quality that builds credibility</span> and <span class="text-gold font-medium">consistency that builds recognition</span>. When both work together, your brand doesn't just appear — it stands out. With technology and AI transforming the way businesses operate, we use automation and intelligent tools to make marketing <span class="text-gold font-medium">faster to launch</span>, <span class="text-gold font-medium">more affordable</span>, <span class="text-gold font-medium">more precise in targeting</span>, and <span class="text-gold font-medium">more efficient in generating results</span>. You focus on running your business. We focus on growing it.`,
     features: [
       {
         title: "Social Media Post Creation",
@@ -189,36 +197,43 @@ const allServices: ServiceData[] = [
     title: "Social Mastery",
     subtitle: "Engage & Influence",
     tagline: "Build communities, not just followers",
-    heroDescription: "We help you build a powerful social presence that amplifies your brand voice and creates genuine connections with your audience.",
-    description: "Social media is where brands become human. We create content strategies and community experiences that transform followers into advocates and casual scrollers into loyal customers.",
+    heroDescription: "Social media is where brands become human. We don't just post content — we build meaningful communities around your brand that drive loyalty, word-of-mouth, and organic growth.",
+    descriptionHtml: `Anyone can post on social media. But building a <span class="text-gold font-medium">loyal, engaged community</span> that actively advocates for your brand? That takes strategy, creativity, and consistency. We help you go beyond vanity metrics like likes and followers. Our focus is on <span class="text-gold font-medium">real engagement</span>, <span class="text-gold font-medium">genuine connections</span>, and <span class="text-gold font-medium">measurable conversions</span> — turning casual scrollers into paying customers who keep coming back.`,
     features: [
       {
         title: "Social Media Strategy",
-        description: "Comprehensive strategy aligned with your business objectives."
+        description: "A comprehensive roadmap aligned with your business goals.",
+        bullets: ["Platform selection & prioritization", "Audience persona development", "Content pillar framework", "Posting cadence & calendar"]
       },
       {
         title: "Content Creation & Curation",
-        description: "Scroll-stopping content that engages and converts."
+        description: "Scroll-stopping content that engages and converts.",
+        bullets: ["Original branded graphics", "Carousel posts & infographics", "User-generated content curation", "Trend-jacking with brand relevance"]
       },
       {
         title: "Community Management",
-        description: "Active engagement that builds relationships and loyalty."
+        description: "Active engagement that builds real relationships.",
+        bullets: ["Comment & DM management", "Conversation starters", "Community guidelines & moderation", "Crisis response planning"]
       },
       {
         title: "Influencer Partnerships",
-        description: "Strategic collaborations that expand your reach authentically."
+        description: "Strategic collaborations that expand your reach authentically.",
+        bullets: ["Influencer identification & vetting", "Campaign brief creation", "Partnership negotiation", "Performance measurement"]
       },
       {
         title: "Viral Campaign Planning",
-        description: "Creative campaigns designed to maximize shareability."
+        description: "Creative campaigns designed to maximize shareability.",
+        bullets: ["Trend analysis & timing", "Challenge & contest creation", "Cross-platform amplification", "Real-time campaign optimization"]
       },
       {
-        title: "Social Analytics",
-        description: "Deep insights into what works and why."
+        title: "Social Analytics & Insights",
+        description: "Deep insights into what works and why, so we can double down.",
+        bullets: ["Monthly performance reports", "Audience growth tracking", "Engagement rate analysis", "Competitor benchmarking"]
       }
     ],
     process: ["Audit & Research", "Strategy & Planning", "Content Production", "Engage & Analyze"],
     gradient: "from-blue-500/20 to-indigo-600/20",
+    ctaText: "Your audience is already on social media. The question is — are they talking about you? Let's make sure they are.",
   },
   {
     id: "ai-powered-growth",
@@ -226,38 +241,48 @@ const allServices: ServiceData[] = [
     title: "AI-Powered Growth",
     subtitle: "Automate & Scale",
     tagline: "The future of growth is intelligent",
-    heroDescription: "We leverage cutting-edge AI technology to automate processes, personalize experiences, and unlock unprecedented growth opportunities.",
-    description: "Artificial intelligence isn't the future—it's now. We implement AI solutions that automate the mundane, personalize at scale, and provide insights that were previously impossible to obtain.",
+    heroDescription: "AI isn't a buzzword — it's the most powerful lever for growth available today. We help businesses implement practical, real-world AI solutions that save time, reduce costs, and unlock new revenue streams.",
+    descriptionHtml: `Most businesses know AI is important, but few know where to start. That's where we come in. We implement <span class="text-gold font-medium">practical AI solutions</span> that deliver real results — not just hype. From <span class="text-gold font-medium">intelligent chatbots</span> that handle customer queries 24/7 to <span class="text-gold font-medium">marketing automation</span> that runs while you sleep, we build AI-powered systems that <span class="text-gold font-medium">scale your business without scaling your team</span>. The result? Lower costs, faster execution, and smarter decisions backed by data.`,
     features: [
       {
         title: "AI Chatbot Development",
-        description: "Intelligent conversational agents that enhance customer experience 24/7."
+        description: "Intelligent conversational agents that enhance customer experience around the clock.",
+        bullets: ["WhatsApp & website chatbots", "Lead qualification automation", "FAQ & support automation", "Multi-language support"]
       },
       {
         title: "Marketing Automation",
-        description: "Smart automation that scales your marketing without scaling your team."
+        description: "Smart automation that runs your marketing engine while you focus on business.",
+        bullets: ["Email drip campaigns", "Social media scheduling", "Lead nurturing sequences", "Triggered notifications & follow-ups"]
       },
       {
         title: "Predictive Analytics",
-        description: "Machine learning models that forecast trends and opportunities."
+        description: "Machine learning models that forecast trends before they happen.",
+        bullets: ["Customer behavior prediction", "Sales forecasting", "Churn risk analysis", "Market trend identification"]
       },
       {
         title: "Personalization Engines",
-        description: "Dynamic content and experiences tailored to each user."
+        description: "Dynamic content and experiences tailored to each individual user.",
+        bullets: ["Website content personalization", "Product recommendations", "Dynamic pricing models", "Personalized email content"]
       },
       {
         title: "AI Content Generation",
-        description: "AI-assisted content creation that maintains your brand voice."
+        description: "AI-assisted content creation that maintains your brand voice at scale.",
+        bullets: ["Blog & article drafts", "Social media copy", "Ad copy variations", "SEO-optimized content"]
       },
       {
         title: "Process Automation",
-        description: "Streamlined workflows that eliminate repetitive tasks."
+        description: "Streamlined workflows that eliminate repetitive tasks and human error.",
+        bullets: ["Data entry automation", "Invoice & report generation", "CRM workflow automation", "Custom business process bots"]
       }
     ],
-    process: ["Assessment & Planning", "Solution Design", "Implementation", "Training & Optimization"],
+    process: ["Assessment & Planning", "Solution Design", "Implementation & Integration", "Training & Optimization"],
     gradient: "from-purple-500/20 to-pink-600/20",
+    ctaText: "AI is no longer optional — it's essential. Let us help you implement the right AI solutions to stay ahead of your competition and grow smarter.",
   },
 ];
+
+// Export for reuse in other components
+export { allServices };
 
 const ServiceDetailPage = () => {
   const { serviceId } = useParams();
@@ -365,8 +390,8 @@ const ServiceDetailPage = () => {
         </div>
       </section>
 
-      {/* About / Description Section */}
-      <section className="py-16 md:py-24 border-b border-border/30">
+      {/* Why Choose Us — larger font + highlighted text */}
+      <section className="py-20 md:py-28 border-b border-border/30">
         <div className="container-tight">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -374,12 +399,16 @@ const ServiceDetailPage = () => {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center"
           >
-            <span className="text-xs tracking-[0.3em] uppercase text-gold mb-4 block">
+            <span className="text-xs tracking-[0.3em] uppercase text-gold mb-6 block">
               Why Choose Us
             </span>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              {service.description}
-            </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-medium mb-8">
+              What Sets Us <span className="italic text-gold">Apart</span>
+            </h2>
+            <p 
+              className="text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: service.descriptionHtml }}
+            />
           </motion.div>
         </div>
       </section>

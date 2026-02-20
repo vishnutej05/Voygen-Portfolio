@@ -177,11 +177,11 @@ const ContactPage = () => {
                         className="w-full bg-transparent border-0 border-b border-border px-0 py-3 text-foreground focus:border-gold focus:outline-none transition-colors cursor-pointer"
                       >
                         <option value="" className="bg-background">Select a service</option>
-                        <option value="brand" className="bg-background">Brand Foundation</option>
-                        <option value="digital" className="bg-background">Digital Presence</option>
-                        <option value="growth" className="bg-background">Growth Marketing</option>
-                        <option value="social" className="bg-background">Social Mastery</option>
-                        <option value="ai" className="bg-background">AI-Powered Growth</option>
+                        <option value="brand-foundation" className="bg-background">Brand Foundation</option>
+                        <option value="digital-presence" className="bg-background">Web Services</option>
+                        <option value="growth-marketing" className="bg-background">Digital Marketing</option>
+                        <option value="social-mastery" className="bg-background">Social Mastery</option>
+                        <option value="ai-powered-growth" className="bg-background">AI-Powered Growth</option>
                       </select>
                     </div>
                   </div>

@@ -6,6 +6,7 @@ import {
   TrendingUp, 
   Users, 
   Cpu,
+  Rocket,
   ArrowRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -50,6 +51,14 @@ const servicePackages = [
     subtitle: "Automate & Scale",
     description: "Cutting-edge AI solutions that supercharge your business growth and streamline operations.",
     features: ["AI Chatbots", "Process Automation", "Predictive Analytics", "Smart Insights"],
+  },
+  {
+    id: "end-to-end-solution",
+    icon: Rocket,
+    title: "End-to-End Solution",
+    subtitle: "Launch & Grow",
+    description: "We stay with you from idea to launch and beyond. Everything you need — branding, website, marketing — in one complete package, custom-priced for your goals.",
+    features: ["Full Branding", "Website + App", "Marketing Suite", "Dedicated Support"],
   },
 ];
 
@@ -151,7 +160,7 @@ const ServicesCarousel = () => {
                 style={{ transformStyle: "preserve-3d" }}
               >
                 <Link 
-                  to={`/services/${service.id}`}
+                  to={service.id === "end-to-end-solution" ? "/contact" : `/services/${service.id}`}
                   onClick={(e) => !isActive && e.preventDefault()}
                   className="block"
                 >
@@ -191,7 +200,7 @@ const ServicesCarousel = () => {
 
                     {/* CTA */}
                     <div className="flex items-center gap-1.5 text-gold text-xs md:text-sm font-medium">
-                      Explore
+                      {service.id === "end-to-end-solution" ? "Let's Talk" : "Explore"}
                       <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
                     </div>
 

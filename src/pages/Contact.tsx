@@ -202,6 +202,7 @@ const ContactPage = () => {
                         <option value="Digital Marketing" className="bg-background">Digital Marketing</option>
                         <option value="Social Mastery" className="bg-background">Social Mastery</option>
                         <option value="AI-Powered Growth" className="bg-background">AI-Powered Growth</option>
+                        <option value="End-to-End Solution" className="bg-background">End-to-End Solution</option>
                       </select>
                     </div>
                   </div>

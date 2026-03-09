@@ -7,6 +7,7 @@ import {
   TrendingUp, 
   Users, 
   Cpu,
+  Rocket,
   Check,
   ArrowRight,
   Mail,
@@ -116,6 +117,25 @@ const allServices = [
     ],
     gradient: "from-purple-500/10 to-pink-600/10",
     borderColor: "hover:border-purple-500/50",
+  },
+  {
+    id: "end-to-end-solution",
+    icon: Rocket,
+    title: "End-to-End Solution",
+    subtitle: "Launch & Grow",
+    description: "We stay with you from idea to launch and beyond. Branding, website, marketing — everything in one complete package, custom-priced for your business goals.",
+    features: [
+      "Complete Brand Identity",
+      "Website & App Development",
+      "Digital Marketing Suite",
+      "Social Media Management",
+      "AI & Automation Setup",
+      "Dedicated Project Manager",
+      "Post-Launch Support",
+      "Custom Pricing"
+    ],
+    gradient: "from-rose-500/10 to-red-600/10",
+    borderColor: "hover:border-rose-500/50",
   },
 ];
 
@@ -228,10 +248,10 @@ const ServicesPage = () => {
                     </p>
 
                     <Link 
-                      to={`/services/${service.id}`}
+                      to={service.id === "end-to-end-solution" ? "/contact" : `/services/${service.id}`}
                       className="inline-flex items-center gap-2 px-6 py-3 border border-gold text-gold font-medium text-sm tracking-wider uppercase rounded-sm hover:bg-gold hover:text-background transition-all duration-300"
                     >
-                      Learn More
+                      {service.id === "end-to-end-solution" ? "Let's Talk" : "Learn More"}
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
